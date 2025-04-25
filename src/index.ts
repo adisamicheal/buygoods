@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes";
 import productRoutes from "./routes/productRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
+import cartRoutes from "./routes/cartRoutes";
+import orderRoutes from "./routes/orderRoutes";
 import { setupSwagger } from "./config/swagger";
 
 dotenv.config();
@@ -35,6 +37,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/catrgories", categoryRoutes);
 
+// cart route 
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+
 app.get("/", (req, res) => {
   res.send("Welcome to buygoods! 🚀");
 });
@@ -42,4 +48,6 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5001; 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
+  // console.log('prisma', prisma); //debugging prisma
 });
