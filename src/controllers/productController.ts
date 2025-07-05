@@ -15,15 +15,19 @@ export const createProduct = async (req: Request, res: Response) => {
       },
     });
 
+    console.log("Product created:", product);
+
     return res.json(product);
-  } catch (error) {
-    return res.status(500).json({ error: "Error creating product" });
+  } catch (error: any) {
+    console.error("CREATE PRODUCT ERROR:", error);
+    return res.status(500).json({ error: error.message || "Error creating product" });
   }
+  
 };
 
-export const getProducts = (req: Request, res: Response) => {
+export const getProducts = async (req: Request, res: Response) => {
   try {
-    const products = prisma.product.findMany({
+    const products = await prisma.product.findMany({
       include: { category: true },
     });
 
